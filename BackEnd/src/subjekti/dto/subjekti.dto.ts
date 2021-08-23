@@ -1,14 +1,17 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
 
 export class SubjektiDto {
+    @ApiProperty()
     @IsNotEmpty()
     emer: string;
-    @IsNotEmpty()
+    @ApiProperty()
     telefon: string;
-    @IsNotEmpty()
+    @ApiProperty()
     adresa: string;
-    @IsNotEmpty()
+    @ApiProperty()
     email: string;
+    @ApiProperty()
     @IsNotEmpty()
     nius: string;
 }

@@ -20,17 +20,17 @@ export class SubjektiService {
     return await this.subjektiRepo.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     let subjekti = await this.subjektiRepo.findOne(id);
     if (subjekti) return subjekti;
     return new HttpException("Subjekti nuk egziston", HttpStatus.NOT_FOUND);
   }
 
-  async update(id: number, updateSubjektiDto: UpdateSubjektiDto) {
+  async update(id: string, updateSubjektiDto: UpdateSubjektiDto) {
     return await this.subjektiRepo.update(id, updateSubjektiDto);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.subjektiRepo.delete(id);
   }
 }

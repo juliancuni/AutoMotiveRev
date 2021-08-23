@@ -3,7 +3,7 @@ import { SubjektiService } from './subjekti.service';
 import { CreateSubjektiDto } from './dto/create-subjekti.dto';
 import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
 
-@Controller('subjekti')
+@Controller('subjektet')
 export class SubjektiController {
   constructor(private readonly subjektiService: SubjektiService) {}
 
@@ -20,16 +20,16 @@ export class SubjektiController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.subjektiService.findOne(+id);
+    return await this.subjektiService.findOne(id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateSubjektiDto: UpdateSubjektiDto) {
-    return await this.subjektiService.update(+id, updateSubjektiDto);
+    return await this.subjektiService.update(id, updateSubjektiDto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.subjektiService.remove(+id);
+    return await this.subjektiService.remove(id);
   }
 }

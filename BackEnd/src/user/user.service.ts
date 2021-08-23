@@ -18,15 +18,15 @@ export class UserService {
     return await this.userRepo.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.userRepo.findOne(id);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     return await this.userRepo.update(id, updateUserDto);
   }
 
-  async remove(id: number) {
-    return await this.userRepo.delete(id);
+  async remove(id: string) {
+    return await this.userRepo.softDelete(id);
   }
 }
