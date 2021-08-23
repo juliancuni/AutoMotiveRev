@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SubjektiService } from './subjekti.service';
-import { CreateSubjektiDto } from './dto/create-subjekti.dto';
 import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
+import { SubjektiDto } from './dto/subjekti.dto';
 
 @Controller('subjektet')
 export class SubjektiController {
@@ -9,7 +9,7 @@ export class SubjektiController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  async create(@Body() createSubjektiDto: CreateSubjektiDto) {
+  async create(@Body() createSubjektiDto: SubjektiDto) {
     return await this.subjektiService.create(createSubjektiDto);
   }
 

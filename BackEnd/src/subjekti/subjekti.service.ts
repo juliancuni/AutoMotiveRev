@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateSubjektiDto } from './dto/create-subjekti.dto';
+import { SubjektiDto } from './dto/subjekti.dto';
 import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
 import { Subjekti } from './entities/subjekti.entity';
 
@@ -12,7 +12,7 @@ export class SubjektiService {
     @InjectRepository(Subjekti) private readonly subjektiRepo: Repository<Subjekti>
   ) { }
 
-  async create(createSubjektiDto: CreateSubjektiDto) {
+  async create(createSubjektiDto: SubjektiDto) {
     return await this.subjektiRepo.save(createSubjektiDto);
   }
 
