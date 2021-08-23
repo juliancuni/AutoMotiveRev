@@ -1,14 +1,3 @@
-import { IsNotEmpty } from "class-validator";
+import { SubjektiDto } from "./subjekti.dto";
 
-export class CreateSubjektiDto {
-    @IsNotEmpty()
-    emer: string;
-    @IsNotEmpty()
-    telefon: string;
-    @IsNotEmpty()
-    adresa: string;
-    @IsNotEmpty()
-    email: string;
-    @IsNotEmpty()
-    nius: string;
-}
+export class CreateSubjektiDto extends SubjektiDto { }

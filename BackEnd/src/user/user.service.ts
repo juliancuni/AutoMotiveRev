@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) { }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<CreateUserDto> {
     return await this.userRepo.save(createUserDto);
   }
 

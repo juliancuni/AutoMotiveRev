@@ -1,6 +1,8 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/user/entities/user.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity({ name: "subjektet" })
+@Unique(['email', 'emer', 'nius', 'telefon'])
 export class Subjekti extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -18,4 +20,8 @@ export class Subjekti extends BaseEntity {
     active: boolean;
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
+
+    /** Userat e ketij Subjekti */
+    @OneToMany(() => User, user => user.subjekti)
+    users: User[];
 }
