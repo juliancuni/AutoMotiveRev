@@ -1,0 +1,36 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateSubjektiDto } from './dto/create-subjekti.dto';
+import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
+import { Subjekti } from './entities/subjekti.entity';
+
+@Injectable()
+export class SubjektiService {
+
+  constructor(
+    @InjectRepository(Subjekti) private readonly subjektiRepo: Repository<Subjekti>
+  ) { }
+
+  async create(createSubjektiDto: CreateSubjektiDto) {
+    return await this.subjektiRepo.save(createSubjektiDto);
+  }
+
+  async findAll() {
+    return await this.subjektiRepo.find();
+  }
+
+  async findOne(id: number) {
+    let subjekti = await this.subjektiRepo.findOne(id);
+    if (subjekti) return subjekti;
+    return new HttpException("Subjekti nuk egziston", HttpStatus.NOT_FOUND);
+  }
+
+  async update(id: number, updateSubjektiDto: UpdateSubjektiDto) {
+    return await this.subjektiRepo.update(id, updateSubjektiDto);
+  }
+
+  async remove(id: number) {
+    return await this.subjektiRepo.delete(id);
+  }
+}

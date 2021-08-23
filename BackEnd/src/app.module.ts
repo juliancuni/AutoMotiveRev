@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SubjektiModule } from './subjekti/subjekti.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { AppService } from './app.service';
       database: process.env.PG_DB,
       autoLoadEntities: true,
       synchronize: true,
-    })
+    }),
+    SubjektiModule
   ],
   controllers: [AppController],
   providers: [AppService],
