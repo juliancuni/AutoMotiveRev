@@ -8,7 +8,7 @@ export class SubjektiController {
   constructor(private readonly subjektiService: SubjektiService) {}
 
   @Post()
-  @UsePipes(ValidationPipe)
+  // @UsePipes(ValidationPipe) added globally in main.ts
   async create(@Body() createSubjektiDto: SubjektiDto) {
     return await this.subjektiService.create(createSubjektiDto);
   }

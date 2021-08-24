@@ -1,27 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { UserEntity } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
+import { IUser } from './entities/user.interface';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Controller('userat')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post('regjistro')
-  @UsePipes(ValidationPipe)
-  async create(@Body() createUserDto: UserDto): Promise<UserDto> {
-    return await this.userService.create(createUserDto);
+  // @UsePipes(ValidationPipe) ***added globally in main.ts
+  async create(@Body() userDto: UserDto): Promise<IUser> {
+    return await this.userService.create(userDto);
+  }
+
+  @Post('login')
+  @HttpCode(200)
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return await this.userService.login(loginUserDto);
   }
 
   @Get()
-  async findAll(): Promise<UserEntity[]> {
+  async findAll(): Promise<IUser[]> {
     return await this.userService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<IUser> {
     return await this.userService.findOne(id);
   }
 
@@ -35,8 +42,8 @@ export class UserController {
     return await this.userService.remove(id);
   }
 
-  @Get('username/:username')
-  async findUsername(@Param('username') username: string) {
-    return await this.userService.findUserByUsername(username);
-  }
+  // @Get('username/:username')
+  // async findUsername(@Param('username') username: string): Promise<IUser> {
+  //   return await this.userService.findUserByUsername(username);
+  // }
 }
