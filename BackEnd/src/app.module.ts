@@ -18,8 +18,8 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.PG_PASS,
       database: process.env.PG_DB,
       autoLoadEntities: true,
-      synchronize: false,
-      logging: true,
+      synchronize: true,
+      logging: false,
       // "entities":
       //   ["src/**/*.entity.ts", "dist/**/*.entity.js"], "migrations":
       //   ["src/migration/**/*.ts", "dist/migration/**/*.js"], "subscribers":

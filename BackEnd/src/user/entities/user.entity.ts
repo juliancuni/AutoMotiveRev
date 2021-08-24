@@ -3,6 +3,12 @@ import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
 import EntityBase from "src/utils/entity.base";
 import { BeforeInsert, Column, Entity, ManyToOne, Unique } from "typeorm";
 
+export enum UserRole {
+    ADMIN = 'admin',
+    USER = 'user'
+}
+
+
 @Entity('users')
 @Unique(['username', 'email'])
 export class UserEntity extends EntityBase {
@@ -18,6 +24,8 @@ export class UserEntity extends EntityBase {
     emer: string;
     @Column({ type: 'varchar', nullable: true })
     mbiemer: string;
+    @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+    role: UserRole;
     @BeforeInsert()
     emailToLowerCase() {
         this.email = this.email.toLowerCase();
