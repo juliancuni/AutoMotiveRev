@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UserDto } from './dto/user.dto';
 import { IUser } from './entities/user.interface';
 import { LoginUserDto } from './dto/login-user.dto';
+import { hasRoles } from 'src/auth/utils/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('userat')
 export class UserController {
@@ -22,6 +25,8 @@ export class UserController {
     return await this.userService.login(loginUserDto);
   }
 
+  @hasRoles('Admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   async findAll(): Promise<IUser[]> {
     return await this.userService.findAll();

@@ -4,6 +4,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { Repository } from 'typeorm';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserTokenDto } from './dto/user-token.dto';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from './entities/user.entity';
 import { IUser } from './entities/user.interface';
@@ -16,7 +17,7 @@ export class UserService {
     private readonly userRepo: Repository<UserEntity>,
     private readonly authService: AuthService,
   ) { }
-  
+
   //Regjistro usera
   async create(createUserDto: UserDto): Promise<IUser> {
     let userByUserName = await this._findUserByUsername(createUserDto.username);
@@ -27,19 +28,25 @@ export class UserService {
       createUserDto.password = hashedPass;
       return this.userRepo.save(createUserDto).then((savedUser: IUser) => {
         //remove password
-        const {password, ...user} = savedUser;
+        const { password, ...user } = savedUser;
         return user;
       });
     })
   }
   //Login
-  async login(loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginUserDto): Promise<UserTokenDto> {
     let userByUserName = await this._findUserByUsername(loginUserDto.username);
     if (!userByUserName) throw new HttpException(`Username '${loginUserDto.username}' nuk egziston`, HttpStatus.NOT_FOUND);
     let passwordMatch = await this.authService.comparePass(loginUserDto.password, userByUserName.password);
-    if(!passwordMatch) throw new HttpException(`Password gabim`, HttpStatus.UNAUTHORIZED);
-    const {password, ...user} = userByUserName;
-    return await this.authService.generateJwt(user);
+    if (!passwordMatch) throw new HttpException(`Password gabim`, HttpStatus.UNAUTHORIZED);
+    const { password, ...user } = userByUserName;
+
+    const token: string = await this.authService.generateJwt(user);
+    const access_token = { access_token: token};
+    
+    const userWithToken = { ...userByUserName, ...access_token };
+
+    return userWithToken;
   }
 
   async findAll(): Promise<IUser[]> {
