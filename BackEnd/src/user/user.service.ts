@@ -38,7 +38,8 @@ export class UserService {
     if (!userByUserName) throw new HttpException(`Username '${loginUserDto.username}' nuk egziston`, HttpStatus.NOT_FOUND);
     let passwordMatch = await this.authService.comparePass(loginUserDto.password, userByUserName.password);
     if(!passwordMatch) throw new HttpException(`Password gabim`, HttpStatus.UNAUTHORIZED);
-    return "Logged in me sukses";
+    const {password, ...user} = userByUserName;
+    return await this.authService.generateJwt(user);
   }
 
   async findAll(): Promise<IUser[]> {
