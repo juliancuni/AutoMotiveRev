@@ -1,10 +1,10 @@
-import { Subjekti } from "src/subjekti/entities/subjekti.entity";
+import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
 import EntityBase from "src/utils/entity.base";
 import { Column, Entity, ManyToOne, Unique } from "typeorm";
 
 @Entity('users')
 @Unique(['username', 'email'])
-export class User extends EntityBase {
+export class UserEntity extends EntityBase {
 
     @Column({ type: 'varchar'})
     username: string;
@@ -19,6 +19,6 @@ export class User extends EntityBase {
     
 
     /** Subjekti te cilit ky user i perket */
-    @ManyToOne(() => Subjekti, subjekti => subjekti.users)
-    subjekti: Subjekti;
+    @ManyToOne(() => SubjektiEntity, subjekti => subjekti.users)
+    subjekti: SubjektiEntity;
 }

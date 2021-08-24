@@ -1,10 +1,10 @@
-import { User } from "src/user/entities/user.entity";
+import { UserEntity } from "src/user/entities/user.entity";
 import EntityBase from "src/utils/entity.base";
 import { Column, Entity, OneToMany, Unique } from "typeorm";
 
 @Entity({ name: "subjektet" })
 @Unique(['email', 'emer', 'nius', 'telefon'])
-export class Subjekti extends EntityBase {
+export class SubjektiEntity extends EntityBase {
 
     @Column({ type: 'varchar' })
     emer: string;
@@ -20,6 +20,6 @@ export class Subjekti extends EntityBase {
     active: boolean;
 
     /** Userat e ketij Subjekti */
-    @OneToMany(() => User, user => user.subjekti)
-    users: User[];
+    @OneToMany(() => UserEntity, user => user.subjekti)
+    users: UserEntity[];
 }
