@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthService } from 'src/auth/auth.service';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UpdatePassDto } from './dto/update-pass.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserTokenDto } from './dto/user-token.dto';
 import { UserDto } from './dto/user.dto';
@@ -42,8 +43,8 @@ export class UserService {
     const { password, ...user } = userByUserName;
 
     const token: string = await this.authService.generateJwt(user);
-    const access_token = { access_token: token};
-    
+    const access_token = { access_token: token };
+
     const userWithToken = { ...userByUserName, ...access_token };
 
     return userWithToken;
@@ -59,6 +60,19 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     return await this.userRepo.update(id, updateUserDto);
+  }
+
+  async changePassword(userId: string, updatePassDto: UpdatePassDto): Promise<HttpException | UpdateResult> {
+    const user = await this.userRepo.findOne(userId, { select: ['password'] });
+    const passwordMatch = await this.authService.comparePass(updatePassDto.oldPassword, user.password);
+    let newHashedPassword: string;
+    if (passwordMatch) {
+      newHashedPassword = await this.authService.hashPass(updatePassDto.newPassword)
+    } else {
+      return new HttpException('Passwordi i vjeter gabim', HttpStatus.UNAUTHORIZED);
+    };
+    const updated = await this.update(userId, { password: newHashedPassword });
+    return updated;
   }
 
   async remove(id: string) {

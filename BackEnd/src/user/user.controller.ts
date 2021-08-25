@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode, UseGuards, HttpException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -8,6 +8,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { hasRoles } from 'src/auth/utils/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UpdatePassDto } from './dto/update-pass.dto';
 
 @Controller('userat')
 export class UserController {
@@ -40,6 +41,11 @@ export class UserController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UpdateResult> {
     return await this.userService.update(id, updateUserDto);
+  }
+
+  @Patch('changepass/:id')
+  async updatePassword(@Param('id') id: string, @Body() updatePassDto: UpdatePassDto): Promise<HttpException | UpdateResult> {
+    return await this.userService.changePassword(id, updatePassDto);
   }
 
   @Delete(':id')
