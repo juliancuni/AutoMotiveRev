@@ -29,6 +29,7 @@ export class UserService {
     if (usercount > 0) throw new HttpException(`Email '${createUserDto.email}' egziston`, HttpStatus.CONFLICT);
     return await this.authService.hashPass(createUserDto.password).then((hashedPass) => {
       createUserDto.password = hashedPass;
+      // if(!createUserDto.role) console.log("ska role");
       return this.userRepo.save(createUserDto).then((savedUser: IUser) => {
         const { password, ...user } = savedUser;
         return user;

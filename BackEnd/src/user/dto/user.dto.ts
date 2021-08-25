@@ -24,6 +24,6 @@ export class UserDto {
     @ApiProperty()
     mbiemer: string;
 
-    @ApiProperty()
-    role: UserRole
+    // @ApiProperty()
+    // roles?: UserRole[]
 }

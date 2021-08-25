@@ -10,7 +10,7 @@ export class RoleEntity extends EntityBase {
     @Column({ type: 'text', nullable: true })
     pershkrimi: string;
 
-    /** Userat qe ky rol u perket */
+    /** Userat qe ka ky rol */
     @ManyToMany(() => UserEntity, userEntity => userEntity.roles)
     @JoinTable()
     users: UserEntity[];

@@ -25,8 +25,8 @@ export class UserController {
     return await this.userService.login(loginUserDto);
   }
 
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @hasRoles('admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @hasRoles('admin')
   @Get()
   async gjejTeGjithe(): Promise<IUser[]> {
     return await this.userService.gjejTeGjithe();
