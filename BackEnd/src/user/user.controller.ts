@@ -25,13 +25,13 @@ export class UserController {
     return await this.userService.login(loginUserDto);
   }
 
-  @hasRoles('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @hasRoles('admin')
   @Get()
   async findAll(): Promise<IUser[]> {
     return await this.userService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<IUser> {
     return await this.userService.findOne(id);

@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { SubjektiModule } from './subjekti/subjekti.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { AuthModule } from './auth/auth.module';
       database: process.env.PG_DB,
       autoLoadEntities: true,
       synchronize: true,
-      logging: false,
+      logging: true,
       // "entities":
       //   ["src/**/*.entity.ts", "dist/**/*.entity.js"], "migrations":
       //   ["src/migration/**/*.ts", "dist/migration/**/*.js"], "subscribers":
@@ -32,7 +33,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     SubjektiModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,8 @@
 import { Min } from "class-validator";
+import { RoleEntity } from "src/role/entities/role.entity";
 import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
 import EntityBase from "src/utils/entity.base";
-import { BeforeInsert, Column, Entity, ManyToOne, Unique } from "typeorm";
+import { BeforeInsert, Column, Entity, ManyToMany, ManyToOne, Unique } from "typeorm";
 
 export enum UserRole {
     ADMIN = 'admin',
@@ -24,14 +25,17 @@ export class UserEntity extends EntityBase {
     emer: string;
     @Column({ type: 'varchar', nullable: true })
     mbiemer: string;
-    @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
-    role: UserRole;
+    // @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+    // role: UserRole;
     @BeforeInsert()
     emailToLowerCase() {
         this.email = this.email.toLowerCase();
     }
-
     /** Subjekti te cilit ky user i perket */
     @ManyToOne(() => SubjektiEntity, subjekti => subjekti.users)
     subjekti: SubjektiEntity;
+    /** Rolet qe ky user ka */
+    @ManyToMany(() => RoleEntity, roleEntity => roleEntity.users)
+    roles: RoleEntity[];
+    
 }
