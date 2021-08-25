@@ -2,7 +2,8 @@ import { Min } from "class-validator";
 import { RoleEntity } from "src/role/entities/role.entity";
 import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
 import EntityBase from "src/utils/entity.base";
-import { BeforeInsert, Column, Entity, ManyToMany, ManyToOne, Unique } from "typeorm";
+import { BeforeInsert, Column, Entity, ManyToMany, ManyToOne, OneToMany, Unique } from "typeorm";
+import { ResetPassEntity } from "./reset-pass.entity";
 
 export enum UserRole {
     ADMIN = 'admin',

@@ -3,10 +3,14 @@ import { BaseEntity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGenerate
 export default class EntityBase extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
     @CreateDateColumn()
     createdAt: Date;
+
     @UpdateDateColumn()
     updatedAt: Date;
+
     @DeleteDateColumn() 
     deletedAt: Date;
+    
 }
