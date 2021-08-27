@@ -5,6 +5,6 @@ import { UserDto } from "src/resources/user/dto/user.dto";
 export class RegjistroUserDto extends UserDto {
     @ApiProperty()
     @IsNotEmpty()
-    @Min(6)
+    // @Min(6)
     password: string;
 }
