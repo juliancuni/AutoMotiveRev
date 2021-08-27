@@ -5,8 +5,10 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
 import JwtAuthGuard from '../auth/guards/jwt-auth.guart';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('userat')
+@ApiTags('Userat')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 

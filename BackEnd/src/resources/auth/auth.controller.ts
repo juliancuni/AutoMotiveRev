@@ -6,8 +6,10 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
 import ReqWithUser from './interfaces/req-with-user.interface';
 import JwtAuthGuard from './guards/jwt-auth.guart';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 // @SerializeOptions({
 //     strategy: 'excludeAll'
 // })

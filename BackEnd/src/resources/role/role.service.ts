@@ -12,23 +12,23 @@ export class RoleService {
     @InjectRepository(RoleEntity) private readonly roleRepo: Repository<RoleEntity>
   ) { }
 
-  create(createRoleDto: RoleDto) {
-    return 'This action adds a new role';
+  async create(roleDto: RoleDto) {
+    return await this.roleRepo.save(roleDto);
   }
 
-  findAll() {
-    return `This action returns all role`;
+  async findAll() {
+    return await this.roleRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
+  async findOne(id: string) {
+    return await this.roleRepo.findOne(id);
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
+  async update(id: string, updateRoleDto: UpdateRoleDto) {
+    return await this.roleRepo.update(id, updateRoleDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  async remove(id: string) {
+    return await this.roleRepo.softDelete(id);
   }
 }
