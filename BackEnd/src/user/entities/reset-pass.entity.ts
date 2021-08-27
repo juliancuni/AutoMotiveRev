@@ -1,5 +1,5 @@
 import { IsIP } from "class-validator";
-import EntityBase from "src/utils/entity.base";
+import { EntityBase } from "src/utils/entity.base";
 import { Column, Entity, ManyToOne } from "typeorm";
 import { UserEntity } from "./user.entity";
 
@@ -21,6 +21,6 @@ export class ResetPassEntity extends EntityBase {
     @Column({ type: 'bool', default: 0 })
     isRecovered: boolean;
 
-    @Column({type: 'uuid'})
+    @Column({ type: 'uuid' })
     userId: string;
 }

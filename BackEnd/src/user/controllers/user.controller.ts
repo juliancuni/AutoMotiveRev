@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UserDto } from '../dto/user.dto';
-import { IUser } from '../entities/user.interface';
+// import { IUser } from '../entities/user.interface';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { hasRoles } from 'src/auth/utils/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -15,7 +15,7 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post('regjistro')
-  async regjistro(@Body() userDto: UserDto): Promise<IUser> {
+  async regjistro(@Body() userDto: UserDto): Promise<UserDto> {
     return await this.userService.regjistro(userDto);
   }
 
@@ -26,14 +26,14 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @hasRoles('admin')
+  @hasRoles('root', 'admin')
   @Get()
-  async gjejTeGjithe(): Promise<IUser[]> {
+  async gjejTeGjithe(): Promise<UserDto[]> {
     return await this.userService.gjejTeGjithe();
   }
   // @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<IUser> {
+  async findOne(@Param('id') id: string): Promise<UserDto> {
     return await this.userService.gjejNjeUserNgaId(id);
   }
 

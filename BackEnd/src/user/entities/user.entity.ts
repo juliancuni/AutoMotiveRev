@@ -1,8 +1,8 @@
 import { Min } from "class-validator";
 import { RoleEntity } from "src/role/entities/role.entity";
 import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
-import EntityBase from "src/utils/entity.base";
-import { BeforeInsert, Column, Entity, ManyToMany, ManyToOne, OneToMany, Unique } from "typeorm";
+import { EntityBase } from "src/utils/entity.base";
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, Unique } from "typeorm";
 import { ResetPassEntity } from "./reset-pass.entity";
 
 export enum UserRole {
@@ -37,6 +37,7 @@ export class UserEntity extends EntityBase {
     subjekti: SubjektiEntity;
     /** Rolet qe ky user ka */
     @ManyToMany(() => RoleEntity, roleEntity => roleEntity.users)
+    @JoinTable({name: 'user_roles'})
     roles: RoleEntity[];
     
 }

@@ -1,5 +1,5 @@
 import { UserEntity } from "src/user/entities/user.entity";
-import EntityBase from "src/utils/entity.base";
+import { EntityBase } from "src/utils/entity.base";
 import { Column, Entity, OneToMany, Unique } from "typeorm";
 
 @Entity({ name: "subjektet" })

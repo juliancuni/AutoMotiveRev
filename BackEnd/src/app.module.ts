@@ -21,7 +21,7 @@ import { MailModule } from './mail/mail.module';
       database: process.env.PG_DB,
       autoLoadEntities: true,
       synchronize: true,
-      logging: true,
+      logging: false,
       // "entities":
       //   ["src/**/*.entity.ts", "dist/**/*.entity.js"], "migrations":
       //   ["src/migration/**/*.ts", "dist/migration/**/*.js"], "subscribers":

@@ -1,5 +1,5 @@
 import { UserEntity } from "src/user/entities/user.entity";
-import EntityBase from "src/utils/entity.base";
+import { EntityBase } from "src/utils/entity.base";
 import { Column, Entity, JoinTable, ManyToMany, Unique } from "typeorm";
 
 @Entity('rolet')
@@ -12,7 +12,6 @@ export class RoleEntity extends EntityBase {
 
     /** Userat qe ka ky rol */
     @ManyToMany(() => UserEntity, userEntity => userEntity.roles)
-    @JoinTable()
     users: UserEntity[];
 
 }

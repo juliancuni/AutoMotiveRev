@@ -1,6 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { isUUID } from 'class-validator';
 import { AuthService } from 'src/auth/auth.service';
+import { RoleService } from 'src/role/role.service';
 import { Repository, UpdateResult } from 'typeorm';
 import { LoginUserDto } from '../dto/login-user.dto';
 import { UpdatePassDto } from '../dto/update-pass.dto';
@@ -8,7 +10,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserTokenDto } from '../dto/user-token.dto';
 import { UserDto } from '../dto/user.dto';
 import { UserEntity } from '../entities/user.entity';
-import { IUser } from '../entities/user.interface';
+// import { IUser } from '../entities/user.interface';
 
 @Injectable()
 export class UserService {
@@ -17,28 +19,45 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
     private readonly authService: AuthService,
+    private readonly roleService: RoleService,
   ) { }
 
   //Regjistro usera
-  async regjistro(createUserDto: UserDto): Promise<IUser> {
+  async regjistro(createUserDto: UserDto): Promise<UserDto> {
     //Kontrollo nese username eshte i zene
     let usercount = await this.userRepo.count({ username: createUserDto.username });
     if (usercount > 0) throw new HttpException(`Username '${createUserDto.username}' egziston`, HttpStatus.CONFLICT);
     //Kontrollo nese email eshte i zene
     usercount = await this.userRepo.count({ email: createUserDto.email });
     if (usercount > 0) throw new HttpException(`Email '${createUserDto.email}' egziston`, HttpStatus.CONFLICT);
-    return await this.authService.hashPass(createUserDto.password).then((hashedPass) => {
-      createUserDto.password = hashedPass;
-      // if(!createUserDto.role) console.log("ska role");
-      return this.userRepo.save(createUserDto).then((savedUser: IUser) => {
-        const { password, ...user } = savedUser;
-        return user;
-      });
-    })
+    const hashedPass = await this.authService.hashPass(createUserDto.password);
+    createUserDto.password = hashedPass;
+    // return createUserDto;
+    const user = this.userRepo.create(createUserDto);
+    return await this.userRepo.save(user);
+    // .then((hashedPass) => {
+    //   createUserDto.password = hashedPass;
+    //   return this.userRepo.save(createUserDto).then((savedUser: IUser) => {
+    //     const { password, ...user } = savedUser;
+    //     return user;
+    //   });
+    // })
   }
+
+  //
+  // async shtoRoleUserit(userId: string, roleId: string) {
+  //   if(!isUUID(userId)) throw new BadRequestException('UserId nuk eshte i sakte');
+  //   if(!isUUID(roleId)) throw new BadRequestException('RoleId nuk eshte i sakte');
+  //   const user = await this.userRepo.findOne(userId);
+  //   if(!user) throw new BadRequestException('User nuk egziston');
+  //   const role = await this.roleService.findOne(roleId);
+  //   if(!role) throw new BadRequestException('Roli nuk egziston');
+  //   user.roles = role;
+  // }
+
   //Login
   async login(loginUserDto: LoginUserDto): Promise<UserTokenDto> {
-    let userByUserName = await this.userRepo.findOne({ username: loginUserDto.username }, { select: ['id', 'username', 'password', 'roles'] });
+    let userByUserName = await this.userRepo.findOne({ username: loginUserDto.username }, { select: ['id', 'username', 'password'], relations: ['roles'] });
     if (!userByUserName) throw new HttpException(`Username '${loginUserDto.username}' nuk egziston`, HttpStatus.NOT_FOUND);
     let passwordMatch = await this.authService.comparePass(loginUserDto.password, userByUserName.password);
     if (!passwordMatch) throw new HttpException(`Password gabim`, HttpStatus.UNAUTHORIZED);
@@ -49,14 +68,14 @@ export class UserService {
     return userWithToken;
   }
   //Gjej te gjithe userat
-  async gjejTeGjithe(): Promise<IUser[]> {
+  async gjejTeGjithe(): Promise<UserDto[]> {
     return await this.userRepo.find();
   }
   //Gjej 1 user nga id
-  async gjejNjeUserNgaId(id: string): Promise<IUser> {
-    return await this.userRepo.findOne(id);
+  async gjejNjeUserNgaId(id: string): Promise<UserDto> {
+    return await this.userRepo.findOne(id, {relations: ['roles']});
   }
-  async gjejNjeCondtion(contidion: any): Promise<IUser> {
+  async gjejNjeCondtion(contidion: any): Promise<UserDto> {
     return await this.userRepo.findOne(contidion);
   }
   //Gjej userin tend

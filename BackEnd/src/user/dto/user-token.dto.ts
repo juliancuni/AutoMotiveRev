@@ -1,8 +1,8 @@
 import { SubjektiEntity } from "src/subjekti/entities/subjekti.entity";
-import { IUser } from "../entities/user.interface";
+// import { IUser } from "../entities/user.interface";
 import { UserDto } from "./user.dto";
 
-export class UserTokenDto implements IUser {
+export class UserTokenDto {
     id: string;
     username: string;
     password?: string;
