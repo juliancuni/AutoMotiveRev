@@ -3,9 +3,10 @@ import { UserDto } from '../user/dto/user.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegjistroUserDto } from './dto/regjistro-user.dto';
-import { LocalAuthGuard } from './local-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
-import ReqWithUser from './req-with-user.interface';
+import ReqWithUser from './interfaces/req-with-user.interface';
+import JwtAuthGuard from './guards/jwt-auth.guart';
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) { }
@@ -23,5 +24,12 @@ export class AuthController {
         const cookie = this.authService.getCookieWithJwtToken(user.id)
         response.setHeader('Set-Cookie', cookie);
         return response.send(user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('logout')
+    async logOut(@Req() request: ReqWithUser, @Res() response: Response) {
+        response.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
+        return response.sendStatus(200);
     }
 }
