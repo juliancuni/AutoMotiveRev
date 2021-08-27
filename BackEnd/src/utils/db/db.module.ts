@@ -16,7 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
                 database: configService.get('PG_DB'),
                 autoLoadEntities: true,
                 synchronize: true,
-                logging: true,
+                logging: false,
             })
         }),
     ]
