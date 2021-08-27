@@ -8,6 +8,7 @@ import { UserModule } from '../resources/user/user.module';
 import { AuthModule } from '../resources/auth/auth.module';
 import * as Joi from '@hapi/joi';
 import { DbModule } from 'src/utils/db/db.module';
+import { RoleModule } from 'src/resources/role/role.module';
 
 @Module({
   imports: [
@@ -25,9 +26,10 @@ import { DbModule } from 'src/utils/db/db.module';
       })
     }),
     DbModule,
-    SubjektiModule,
+    // SubjektiModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
