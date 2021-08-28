@@ -24,7 +24,6 @@ export class UserEntity extends EntityBase {
     mbiemer: string;
 
     @ManyToMany(() => RoleEntity, (role: RoleEntity) => role.userat)
-    @JoinTable({name: 'users_roles'})
     rolet: RoleEntity[];
 
 }

@@ -6,6 +6,7 @@ import { UserEntity } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
 import JwtAuthGuard from '../auth/guards/jwt-auth.guart';
 import { ApiTags } from '@nestjs/swagger';
+import { string } from '@hapi/joi';
 
 @Controller('userat')
 @ApiTags('Userat')
@@ -42,5 +43,10 @@ export class UserController {
   @Get('username/:username')
   async findUsername(@Param('username') username: string) {
     return await this.userService.findUserByUsername(username);
+  }
+
+  @Post(':userId/role/:roleId')
+  async addRoleToUser(@Param('userId') userId: string, @Param('roleId') roleId: string) {
+    return this.userService.addRoleToUser(userId, roleId);
   }
 }

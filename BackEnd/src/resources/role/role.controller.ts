@@ -7,7 +7,7 @@ import JwtAuthGuard from '../auth/guards/jwt-auth.guart';
 
 @Controller('role')
 @ApiTags('Role')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 

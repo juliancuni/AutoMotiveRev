@@ -12,7 +12,7 @@ async function bootstrap() {
   app.use(helmet());
   app.setGlobalPrefix('api');
   app.use(cookieParser());
-  app.useGlobalFilters(new ExceptionsLoggerFilter(app.get(HttpAdapterHost)));
+  // app.useGlobalFilters(new ExceptionsLoggerFilter(app.get(HttpAdapterHost)));
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   const config = new DocumentBuilder()

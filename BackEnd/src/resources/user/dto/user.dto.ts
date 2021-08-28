@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
+import { RoleDto } from "src/resources/role/dto/role.dto";
 
 export class UserDto {
 
@@ -19,5 +20,8 @@ export class UserDto {
 
     @ApiProperty()
     mbiemer: string;
+
+    @ApiProperty()
+    rolet: RoleDto[];
 
 }
