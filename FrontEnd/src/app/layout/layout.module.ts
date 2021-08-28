@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrivateModule } from './private/private.module';
-import { PublicModule } from './public/public.module';
+import { PrivateLayoutModule } from './private/private-layout.module';
+import { PublicLayoutModule } from './public/public-layout.module';
 
 
 
@@ -9,12 +9,12 @@ import { PublicModule } from './public/public.module';
   declarations: [],
   imports: [
     CommonModule,
-    PrivateModule,
-    PublicModule,
+    PrivateLayoutModule,
+    PublicLayoutModule,
   ],
   exports: [
-    PrivateModule,
-    PublicModule,
+    PrivateLayoutModule,
+    PublicLayoutModule,
   ],
 })
 export class LayoutModule { }

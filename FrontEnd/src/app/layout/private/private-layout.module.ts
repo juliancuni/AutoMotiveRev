@@ -30,4 +30,4 @@ import { PrivateOffsidebarComponent } from './private-offsidebar/private-offside
     PrivateOffsidebarComponent
   ]
 })
-export class PrivateModule { }
+export class PrivateLayoutModule { }
