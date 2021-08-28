@@ -100,38 +100,38 @@ export class UserControllerService {
     public userControllerCount(where?: { [key: string]: object; }, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<LoopbackCount>>;
     public userControllerCount(where?: { [key: string]: object; }, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (where !== undefined && where !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>where, 'where');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.get<LoopbackCount>(`${this.configuration.basePath}/users/count`,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -148,18 +148,18 @@ export class UserControllerService {
     public userControllerCreate(newUser?: NewUser, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<User>>;
     public userControllerCreate(newUser?: NewUser, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -169,20 +169,20 @@ export class UserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.post<User>(`${this.configuration.basePath}/users`,
             newUser,
             {
-                responseType: <any>responseType_,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -202,31 +202,31 @@ export class UserControllerService {
             throw new Error('Required parameter id was null or undefined when calling userControllerDeleteById.');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.delete<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
             {
-                responseType: <any>responseType_,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -243,38 +243,38 @@ export class UserControllerService {
     public userControllerFind(filter?: UserFilter1, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<UserWithRelations>>>;
     public userControllerFind(filter?: UserFilter1, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>filter, 'filter');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.get<Array<UserWithRelations>>(`${this.configuration.basePath}/users`,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -295,38 +295,38 @@ export class UserControllerService {
             throw new Error('Required parameter id was null or undefined when calling userControllerFindById.');
         }
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>filter, 'filter');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.get<UserWithRelations>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -347,18 +347,18 @@ export class UserControllerService {
             throw new Error('Required parameter id was null or undefined when calling userControllerReplaceById.');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -368,20 +368,20 @@ export class UserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.put<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
             user,
             {
-                responseType: <any>responseType_,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -399,24 +399,24 @@ export class UserControllerService {
     public userControllerUpdateAll(where?: { [key: string]: object; }, userPartial?: UserPartial, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<LoopbackCount>>;
     public userControllerUpdateAll(where?: { [key: string]: object; }, userPartial?: UserPartial, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (where !== undefined && where !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>where, 'where');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -426,21 +426,21 @@ export class UserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.patch<LoopbackCount>(`${this.configuration.basePath}/users`,
             userPartial,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -461,18 +461,18 @@ export class UserControllerService {
             throw new Error('Required parameter id was null or undefined when calling userControllerUpdateById.');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -482,20 +482,20 @@ export class UserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.patch<any>(`${this.configuration.basePath}/users/${encodeURIComponent(String(id))}`,
             userPartial,
             {
-                responseType: <any>responseType_,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }

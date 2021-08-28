@@ -101,18 +101,18 @@ export class RoleUserControllerService {
             throw new Error('Required parameter id was null or undefined when calling roleUserControllerCreate.');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -122,20 +122,20 @@ export class RoleUserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.post<User>(`${this.configuration.basePath}/roles/${encodeURIComponent(String(id))}/users`,
             newUserInRole,
             {
-                responseType: <any>responseType_,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -156,38 +156,38 @@ export class RoleUserControllerService {
             throw new Error('Required parameter id was null or undefined when calling roleUserControllerDelete.');
         }
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (where !== undefined && where !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>where, 'where');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.delete<LoopbackCount>(`${this.configuration.basePath}/roles/${encodeURIComponent(String(id))}/users`,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -208,38 +208,38 @@ export class RoleUserControllerService {
             throw new Error('Required parameter id was null or undefined when calling roleUserControllerFind.');
         }
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>filter, 'filter');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.get<Array<User>>(`${this.configuration.basePath}/roles/${encodeURIComponent(String(id))}/users`,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -261,24 +261,24 @@ export class RoleUserControllerService {
             throw new Error('Required parameter id was null or undefined when calling roleUserControllerPatch.');
         }
 
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        let queryParameters = new HttpParams({encoder: this.encoder});
         if (where !== undefined && where !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          queryParameters = this.addToHttpParams(queryParameters,
             <any>where, 'where');
         }
 
-        let localVarHeaders = this.defaultHeaders;
+        let headers = this.defaultHeaders;
 
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
             // to determine the Accept header
             const httpHeaderAccepts: string[] = [
                 'application/json'
             ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
 
@@ -288,21 +288,21 @@ export class RoleUserControllerService {
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        let responseType_: 'text' | 'json' = 'json';
-        if(localVarHttpHeaderAcceptSelected && localVarHttpHeaderAcceptSelected.startsWith('text')) {
-            responseType_ = 'text';
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
         }
 
         return this.httpClient.patch<LoopbackCount>(`${this.configuration.basePath}/roles/${encodeURIComponent(String(id))}/users`,
             userPartial,
             {
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
+                params: queryParameters,
+                responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
-                localVarHeaders: localVarHeaders,
+                headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
