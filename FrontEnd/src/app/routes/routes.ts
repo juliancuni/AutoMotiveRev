@@ -6,7 +6,8 @@ export const routes: Routes = [
     {
         path: 'app', component: PrivateLayoutComponent, children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', loadChildren: () => import('./private/home/home.module').then(m => m.HomeModule) }
+            { path: 'home', loadChildren: () => import('./private/home/home.module').then(m => m.HomeModule) },
+            { path: 'users', loadChildren: () => import('./private/users/users.module').then(m => m.UsersModule) }
         ]
     },
     {
