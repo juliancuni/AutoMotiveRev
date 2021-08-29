@@ -7,8 +7,9 @@ import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
-import { ApiModule } from './shared/sdk';
+// import { ApiModule } from './shared/sdk';
 import { HttpClientModule } from '@angular/common/http';
+import { ApiModule } from './shared/sdk1/api.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     RoutesModule,
     SharedModule.forRoot(),
     LayoutModule,
-    ApiModule
+    ApiModule.forRoot({rootUrl: "http://localhost:3000"})
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,15 +1,18 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
+import {v4 as uuid} from 'uuid';
 import {User} from './user.model';
 import {UsersRoles} from './users-roles.model';
 
-@model()
+@model({
+  settings: {postgresql: {schema: 'public', table: 'roles'}},
+})
 export class Role extends Entity {
   @property({
     type: 'string',
     id: true,
-    generated: false,
+    default: () => uuid(),
   })
-  id: string;
+  id?: string;
 
   @property({
     type: 'string',

@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{userModalTitle}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="userModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="userForm" class="form-validate form-horizontal" novalidate="">
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="username" placeholder="Username" />
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['username'].hasError('required') && (userForm.controls['username'].dirty || userForm.controls['username'].touched)">This
+                    field is required</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="password" placeholder="Password" />
+
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['password'].hasError('required') && (userForm.controls['password'].dirty || userForm.controls['password'].touched)">This
+                    field is required</span>
+            </div>
+        </div>
+        <button type="button" (click)="openRoleModal()">Add Role</button>
+        <pre>{{roles$ | async | json}}</pre>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submitUserForm()">Ruaj</button>
+    <button type="button" class="btn btn-secondary" (click)="userModalRef.hide()">Mbyll</button>
+</div>
