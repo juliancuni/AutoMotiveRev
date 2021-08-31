@@ -22,13 +22,6 @@
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
             <div class="col-lg-7">
                 <input class="form-control" type="text" formControlName="desc" placeholder="Pershkrimi" />
-
-            </div>
-            <div class="col-lg-5">
-                <small class="text-danger">* </small>
-                <span class="text-danger"
-                    *ngIf="roleForm.controls['desc'].hasError('required') && (roleForm.controls['desc'].dirty || roleForm.controls['desc'].touched)">This
-                    field is required</span>
             </div>
         </div>
     </form>

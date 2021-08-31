@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Role, RoleControllerService } from 'src/app/shared/sdk';
+import { RoleDto, RolesCRUDService } from 'src/app/shared/sdk';
 
 @Component({
   selector: 'app-role-modal',
@@ -12,13 +12,13 @@ export class RoleModalComponent implements OnInit {
 
   public roleForm: FormGroup;
   constructor(
-    private readonly roleService: RoleControllerService,
+    private readonly roleService: RolesCRUDService,
     public roleModalRef: BsModalRef,
     private fb: FormBuilder
   ) {
     this.roleForm = fb.group({
       'role': fb.control(null, Validators.required),
-      'desc': fb.control(null, Validators.required),
+      'desc': fb.control(null),
     })
   }
 
@@ -26,10 +26,9 @@ export class RoleModalComponent implements OnInit {
     for (let c in this.roleForm.controls) {
       this.roleForm.controls[c].markAsTouched();
     }
-
     if (this.roleForm.valid) {
-      const role: Role = this.roleForm.value;
-      this.roleService.roleControllerCreate(role).subscribe((res) => console.log(res));
+      const role: RoleDto = this.roleForm.value;
+      this.roleService.rolesControllerCreate(role).subscribe((res) => console.log(res));
     }
   }
 

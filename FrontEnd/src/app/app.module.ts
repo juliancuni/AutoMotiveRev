@@ -7,9 +7,15 @@ import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
-// import { ApiModule } from './shared/sdk';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiModule } from './shared/sdk1/api.module';
+import { ApiModule } from './shared/sdk/api.module';
+import { Configuration } from './shared/sdk';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+
+const apiConf = () => {
+  return new Configuration({ basePath: "http://localhost:3000" })
+};
 
 @NgModule({
   declarations: [
@@ -22,7 +28,10 @@ import { ApiModule } from './shared/sdk1/api.module';
     RoutesModule,
     SharedModule.forRoot(),
     LayoutModule,
-    ApiModule.forRoot({rootUrl: "http://localhost:3000"})
+    ApiModule.forRoot(apiConf),
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

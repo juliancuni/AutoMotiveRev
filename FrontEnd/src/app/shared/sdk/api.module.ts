@@ -2,10 +2,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { RoleControllerService } from './api/roleController.service';
-import { RoleUserControllerService } from './api/roleUserController.service';
-import { UserControllerService } from './api/userController.service';
-import { UserRoleControllerService } from './api/userRoleController.service';
+import { RolesCRUDService } from './api/rolesCRUD.service';
+import { UsersCRUDService } from './api/usersCRUD.service';
 
 @NgModule({
   imports:      [],

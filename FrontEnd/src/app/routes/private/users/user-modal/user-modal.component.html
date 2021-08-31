@@ -6,6 +6,7 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="userForm" class="form-validate form-horizontal" novalidate="">
+        <!-- Username -->
         <div class="form-group row">
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
             <div class="col-lg-7">
@@ -18,7 +19,8 @@
                     field is required</span>
             </div>
         </div>
-        <div class="form-group row">
+        <!-- Password -->
+        <div class="form-group row" *ngIf="false">
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
             <div class="col-lg-7">
                 <input class="form-control" type="text" formControlName="password" placeholder="Password" />
@@ -31,8 +33,90 @@
                     field is required</span>
             </div>
         </div>
-        <button type="button" (click)="openRoleModal()">Add Role</button>
-        <pre>{{roles$ | async | json}}</pre>
+        <!-- Email -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="email" placeholder="Email" />
+
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['email'].hasError('required') && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">This
+                    field is required</span>
+            </div>
+        </div>
+        <!-- Id Card -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="docId" placeholder="Id Card" />
+            </div>
+        </div>
+        <!-- Emer -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="emer" placeholder="Emer" />
+
+            </div>
+        </div>
+        <!-- Mbiemer -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="mbiemer" placeholder="Mbiemer" />
+
+            </div>
+        </div>
+
+        <!-- Pseudonimi -->
+        <div class="form-group row" *ngIf="false">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="alias" placeholder="Pseudonimi" />
+
+            </div>
+        </div>
+
+        <!-- Telefoni -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="phone" placeholder="Telefoni" />
+
+            </div>
+        </div>
+
+        <!-- Adresa -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="address" placeholder="Adresa" />
+
+            </div>
+        </div>
+
+        <!-- Fotografia -->
+        <div class="form-group row" *ngIf="false">
+            <label class="col-lg-1 col-form-label text-lg-right">Foto</label>
+            <div class="col-lg-6">
+                <input class="form-control" type="file" formControlName="photo" placeholder="Fotografia" />
+
+            </div>
+        </div>
+
+        <div class="d-flex mb-3 col-lg-7" *ngFor="let role of roles$ | async; index as i">
+            <div>{{role.role}}</div>
+            <div class="ml-auto">
+                <label class="switch m-0">
+                    <input type="checkbox" formControlName="role" id="role{{i}}" />
+                    <span></span>
+                </label>
+            </div>
+        </div>
+        <button class="btn btn-xs btn-primary" type="button" (click)="openRoleModal()">Reg.Role</button>
     </form>
 </div>
 <div class="modal-footer">
