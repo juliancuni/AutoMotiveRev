@@ -20,7 +20,7 @@
             </td>
             <td>
                 <span *ngFor="let role of user.roles">{{role.role}},</span>
-                
+
             </td>
             <td>
                 <button class="mr-1 btn btn-primary btn-xs" type="button" (click)="openUserModal(user)">Edit</button>
@@ -33,7 +33,7 @@
 </table>
 
 
-<table class="table">
+<!-- <table class="table">
     <thead>
         <th>
             Role
@@ -55,8 +55,9 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
 
+<pre>{{users$ | async | json}}</pre>
 
 <p>
     <button class="mr-1 btn btn-primary btn-xs" type="button" (click)="openUserModal()">New User</button>

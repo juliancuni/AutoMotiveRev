@@ -6,6 +6,7 @@
 </div>
 <div class="modal-body">
     <form [formGroup]="userForm" class="form-validate form-horizontal" novalidate="">
+
         <!-- Username -->
         <div class="form-group row">
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
@@ -19,20 +20,7 @@
                     field is required</span>
             </div>
         </div>
-        <!-- Password -->
-        <div class="form-group row" *ngIf="false">
-            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
-            <div class="col-lg-7">
-                <input class="form-control" type="text" formControlName="password" placeholder="Password" />
 
-            </div>
-            <div class="col-lg-5">
-                <small class="text-danger">* </small>
-                <span class="text-danger"
-                    *ngIf="userForm.controls['password'].hasError('required') && (userForm.controls['password'].dirty || userForm.controls['password'].touched)">This
-                    field is required</span>
-            </div>
-        </div>
         <!-- Email -->
         <div class="form-group row">
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
@@ -47,6 +35,22 @@
                     field is required</span>
             </div>
         </div>
+
+        <!-- Telefoni -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="phone" placeholder="Telefoni" />
+
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['phone'].hasError('required') && (userForm.controls['phone'].dirty || userForm.controls['phone'].touched)">This
+                    field is required</span>
+            </div>
+        </div>
+
         <!-- Id Card -->
         <div class="form-group row">
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
@@ -76,15 +80,6 @@
             <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
             <div class="col-lg-7">
                 <input class="form-control" type="text" formControlName="alias" placeholder="Pseudonimi" />
-
-            </div>
-        </div>
-
-        <!-- Telefoni -->
-        <div class="form-group row">
-            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
-            <div class="col-lg-7">
-                <input class="form-control" type="text" formControlName="phone" placeholder="Telefoni" />
 
             </div>
         </div>

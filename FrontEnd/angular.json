@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "AutoMotiveFrontEnd"
+  "defaultProject": "AutoMotiveFrontEnd",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

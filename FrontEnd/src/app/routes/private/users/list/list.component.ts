@@ -1,9 +1,13 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserDto, RoleDto, RolesCRUDService, UsersCRUDService } from 'src/app/shared/sdk';
+import { UserDto, RoleDto, RolesCRUDService } from 'src/app/shared/sdk';
 import { UserModalComponent } from '../user-modal/user-modal.component';
+import { select, Store } from '@ngrx/store';
+import { UserState } from 'src/app/shared/store/reducers/user.reducer';
+import { selectAllUsers } from 'src/app/shared/store/selectors/user.selectors';
+import { map, tap } from 'rxjs/operators';
+import { deleteUser } from 'src/app/shared/store/actions/user.actions';
 
 @Component({
   selector: 'app-list',
@@ -13,37 +17,30 @@ import { UserModalComponent } from '../user-modal/user-modal.component';
 export class ListComponent implements OnInit {
 
   users$: Observable<UserDto[]>;
-  roles$: Observable<RoleDto[]>;
   userModalRef?: BsModalRef;
   user?: UserDto;
   constructor(
-    private readonly userService: UsersCRUDService,
-    private readonly roleService: RolesCRUDService,
     private modalService: BsModalService,
+    private readonly store: Store<UserState>,
+
   ) {
-    this.users$ = this.userService.usersControllerFindAll(1, 10, ['roles'], JSON.stringify({})).pipe(
-      map((users$: any) => users$.items)
-    );
-    this.roles$ = this.roleService.rolesControllerFindAll();
+    this.users$ = this.store.pipe(select(selectAllUsers));
   }
 
   openUserModal(user?: UserDto) {
     const initialState = {
       user,
-      roles$: this.roles$,
     };
     this.userModalRef = this.modalService.show(UserModalComponent, { initialState });
     this.userModalRef.content.closeBtnName = 'Close';
   }
 
   deleteUser(user: UserDto) {
-    console.log(user)
-    this.userService.usersControllerDeleteUser(user.id!).subscribe()
+    this.store.dispatch(deleteUser({ id: user.id as string }))
   }
 
   deleteRole(role: RoleDto) {
     console.log(role)
-    this.roleService.rolesControllerDelete(role.id!).subscribe()
   }
 
 
