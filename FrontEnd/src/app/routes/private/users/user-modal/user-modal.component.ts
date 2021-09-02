@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { RoleDto, UserDto, UsersCRUDService } from 'src/app/shared/sdk';
 import { addNewUser, updateUser } from 'src/app/shared/store/actions/user.actions';
 import { UserState } from 'src/app/shared/store/reducers/user.reducer';
-import { RoleModalComponent } from '../role-modal/role-modal.component';
+import { RoleModalComponent } from '../../roles/role-modal/role-modal.component';
 
 @Component({
     selector: 'app-user-modal',
@@ -78,7 +78,7 @@ export class UserModalComponent implements OnInit {
         this.userForm.controls['alias'].setValue(this.user?.alias);
         this.userForm.controls['photo'].setValue(this.user?.photo);
         this.userForm.controls['address'].setValue(this.user?.address);
-        this.userModalTitle = this.user ? `Edit User ${this.user.username}` : "Krijo User te ri";
+        this.userModalTitle = this.user ? `Edit User ${this.user.emer} ${this.user.mbiemer}: ${this.user.username}` : "Krijo User te ri";
     }
 
 }

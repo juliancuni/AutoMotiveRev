@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { finalize, first, map, tap } from 'rxjs/operators';
 import { AppState } from '..';
-import { loadUsers } from '../actions/user.actions';
+import { loadRoles } from '../actions/role.actions';
 
 @Injectable()
-export class UsersResolver implements Resolve<any> {
+export class RolesResolver implements Resolve<any> {
 
     private loading = false;
 
@@ -17,9 +17,9 @@ export class UsersResolver implements Resolve<any> {
         return this.store.pipe(
             map((store: any) => {
                 if (!this.loading) {
-                    if (!store.users || store.users.ids.length === 0) {
+                    if (!store.roles || store.roles.ids.length === 0) {
                         this.loading = true;
-                        this.store.dispatch(loadUsers());
+                        this.store.dispatch(loadRoles());
                     }
                 }
             }),

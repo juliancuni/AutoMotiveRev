@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { UserDto, RoleDto, RolesCRUDService } from 'src/app/shared/sdk';
@@ -10,14 +10,14 @@ import { map, tap } from 'rxjs/operators';
 import { deleteUser } from 'src/app/shared/store/actions/user.actions';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-users-list',
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class UsersListComponent implements OnInit {
 
   users$: Observable<UserDto[]>;
-  userModalRef?: BsModalRef;
+  modalRef?: BsModalRef;
   user?: UserDto;
   constructor(
     private modalService: BsModalService,
@@ -31,8 +31,22 @@ export class ListComponent implements OnInit {
     const initialState = {
       user,
     };
-    this.userModalRef = this.modalService.show(UserModalComponent, { initialState });
-    this.userModalRef.content.closeBtnName = 'Close';
+    this.modalRef = this.modalService.show(UserModalComponent, { initialState });
+    this.modalRef.content.closeBtnName = 'Close';
+  }
+
+  openDeleteConfirm(template: TemplateRef<any>, user: UserDto) {
+    this.user = user;
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  confirmDeleteUser(): void {
+    this.deleteUser(this.user!);
+    this.modalRef?.hide();
+  }
+
+  cancelDelete(): void {
+    this.modalRef?.hide();
   }
 
   deleteUser(user: UserDto) {

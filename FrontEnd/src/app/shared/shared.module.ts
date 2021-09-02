@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { MenuService } from './services/menu.service';
+import { SettingsService } from './services/settings.service';
 
 
 @NgModule({
@@ -16,7 +18,10 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    MenuService,
+    SettingsService
+  ],
   exports: [
     RouterModule,
     FormsModule,
