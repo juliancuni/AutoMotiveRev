@@ -10,6 +10,8 @@ import { userFeatureKey, userReducer } from 'src/app/shared/store/reducers/user.
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from '../../../shared/store/effects/user.effects';
 import { UsersResolver } from 'src/app/shared/store/resolvers/users.resolver';
+import { RoleEffects } from 'src/app/shared/store/effects/role.effects';
+import { RolesModule } from '../roles/roles.module';
 
 const routes: Routes = [
   { path: '', component: UsersListComponent, resolve: { users: UsersResolver } }
@@ -26,7 +28,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     StoreModule.forFeature(userFeatureKey, userReducer),
-    EffectsModule.forFeature([UserEffects])
+    EffectsModule.forFeature([UserEffects, RoleEffects]),
   ],
   providers: [
     UsersResolver,

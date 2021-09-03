@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Update } from '@ngrx/entity';
+import { Store } from '@ngrx/store';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { RoleDto, RolesCRUDService } from 'src/app/shared/sdk';
+import { RoleDto } from 'src/app/shared/sdk';
+import { addNewRole, updateRole } from 'src/app/shared/store/actions/role.actions';
+import { RoleState } from 'src/app/shared/store/reducers/role.reducer';
 
 @Component({
   selector: 'app-role-modal',
@@ -11,8 +15,12 @@ import { RoleDto, RolesCRUDService } from 'src/app/shared/sdk';
 export class RoleModalComponent implements OnInit {
 
   public roleForm: FormGroup;
+  role?: RoleDto;
+  roleModalTitle?: string;
+  update: boolean = false;
+
   constructor(
-    private readonly roleService: RolesCRUDService,
+    private readonly store: Store<RoleState>,
     public roleModalRef: BsModalRef,
     private fb: FormBuilder
   ) {
@@ -28,11 +36,18 @@ export class RoleModalComponent implements OnInit {
     }
     if (this.roleForm.valid) {
       const role: RoleDto = this.roleForm.value;
-      this.roleService.rolesControllerCreate(role).subscribe((res) => console.log(res));
+      const update: Update<RoleDto> = { id: role.id!, changes: role }
+
+      this.update ? this.store.dispatch(updateRole({ update })) : this.store.dispatch(addNewRole({ role }));
+      this.roleModalRef.hide();
+      this.roleForm.reset();
     }
   }
 
   ngOnInit(): void {
     this.roleModalRef.setClass("modal-md");
+    this.roleForm.controls['role'].setValue(this.role?.role);
+    this.roleForm.controls['desc'].setValue(this.role?.desc);
+    this.roleModalTitle = this.role ? `Edit Role ${this.role.role}` : "Krijo Role";
   }
 }

@@ -7,6 +7,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { MenuService } from './services/menu.service';
 import { SettingsService } from './services/settings.service';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SettingsService } from './services/settings.service';
     ReactiveFormsModule,
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [
     MenuService,
@@ -28,6 +30,7 @@ import { SettingsService } from './services/settings.service';
     ReactiveFormsModule,
     ModalModule,
     ButtonsModule,
+    ToastrModule
   ]
 })
 export class SharedModule {

@@ -17,6 +17,8 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { userReducer } from './shared/store/reducers/user.reducer';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
+import { UserEffects } from './shared/store/effects/user.effects';
+import { RoleEffects } from './shared/store/effects/role.effects';
 
 const apiConf = () => {
   return new Configuration({ basePath: "http://localhost:3000" })

@@ -41,16 +41,12 @@ export class UsersListComponent implements OnInit {
   }
 
   confirmDeleteUser(): void {
-    this.deleteUser(this.user!);
+    this.store.dispatch(deleteUser({ id: this.user?.id as string }))
     this.modalRef?.hide();
   }
 
   cancelDelete(): void {
     this.modalRef?.hide();
-  }
-
-  deleteUser(user: UserDto) {
-    this.store.dispatch(deleteUser({ id: user.id as string }))
   }
 
   deleteRole(role: RoleDto) {

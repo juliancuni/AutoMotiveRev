@@ -5,18 +5,11 @@ import { addNewUser, addNewUserSuccess, deleteUserSuccess, loadUsersSuccess, upd
 
 export const userFeatureKey = 'users';
 
-export interface UserState extends EntityState<UserDto> {
-  selectedUserId: string | null;
-}
+export interface UserState extends EntityState<UserDto> { }
 
-export const usersAdapter = createEntityAdapter<UserDto>({
-});
+export const usersAdapter = createEntityAdapter<UserDto>({});
 
-export const initialState: UserState = usersAdapter.getInitialState(
-  {
-    selectedUserId: null
-  }
-);
+export const initialState: UserState = usersAdapter.getInitialState({});
 
 export const userReducer = createReducer(
   initialState,

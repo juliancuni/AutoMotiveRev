@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { finalize, first, map, tap } from 'rxjs/operators';
+import { finalize, first, map } from 'rxjs/operators';
 import { AppState } from '..';
 import { loadUsers } from '../actions/user.actions';
 

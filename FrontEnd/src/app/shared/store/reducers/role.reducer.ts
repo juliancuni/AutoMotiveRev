@@ -3,20 +3,15 @@ import { createReducer, on } from '@ngrx/store';
 import { RoleDto } from '../../sdk'
 import { addNewRole, addNewRoleSuccess, deleteRoleSuccess, loadRolesSuccess, updateRole, updateRoleSuccess } from '../actions/role.actions';
 
-export const roleFeatureKey = 'Roles';
+export const roleFeatureKey = 'roles';
 
 export interface RoleState extends EntityState<RoleDto> {
-  selectedRoleId: string | null;
 }
 
 export const rolesAdapter = createEntityAdapter<RoleDto>({
 });
 
-export const initialState: RoleState = rolesAdapter.getInitialState(
-  {
-    selectedRoleId: null
-  }
-);
+export const initialState: RoleState = rolesAdapter.getInitialState({});
 
 export const roleReducer = createReducer(
   initialState,

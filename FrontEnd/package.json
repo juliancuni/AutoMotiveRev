@@ -29,6 +29,7 @@
     "@openapitools/openapi-generator-cli": "^2.3.10",
     "bootstrap": "^4.5.3",
     "ngx-bootstrap": "^7.0.0",
+    "ngx-toastr": "^14.1.0",
     "rxjs": "~6.6.0",
     "simple-line-icons": "^2.5.5",
     "source-sans-pro": "^3.6.0",

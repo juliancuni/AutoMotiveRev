@@ -39,7 +39,7 @@ export class UserEffects {
     ofType(deleteUser),
     concatMap(({ id }) => this.userService.usersControllerDeleteUser(id)),
     map((user: any) => {
-      console.log(user);
+      // console.log(user);
       return deleteUserSuccess({ user })
     })
   ))
