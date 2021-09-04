@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -30,11 +31,14 @@ export class UsersService {
   }
 
   async create(userDto: UserDto): Promise<UserDto> {
-    const password = "36638833";
     let roles = [];
     if (userDto.roles) roles = await Promise.all(userDto.roles.map((role) => this.preloadRole(role)));
     const user = await this.userRepo.findOne({ username: userDto.username });
     if (user) throw new BadRequestException(`Egziston i regjistruar ky username: "${user.username}"`);
+    let { password } = userDto;
+    console.log(password)
+    password = await this._hashPass(password);
+    console.log(password)
     const newUser = this.userRepo.create({ ...userDto, password, roles });
     return await this.userRepo.save(newUser);
   }
@@ -84,6 +88,10 @@ export class UsersService {
   private _isEmail(email: string) {
     const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(email);
+  }
+
+  private async _hashPass(plainTextPass: string): Promise<string> {
+    return await bcrypt.hash(plainTextPass, 12);
   }
 
 }

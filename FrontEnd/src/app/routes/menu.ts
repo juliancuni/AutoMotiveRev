@@ -372,10 +372,10 @@ const Auth = {
 // }
 
 
-const headingMain = {
-    text: 'Main Navigation',
-    heading: true
-};
+// const headingMain = {
+//     text: 'Main Navigation',
+//     heading: true
+// };
 
 // const headingComponents = {
 //     text: 'Components',
@@ -388,7 +388,7 @@ const headingMain = {
 // };
 
 export const menu = [
-    headingMain,
+    // headingMain,
     Home,
     Auth,
     // Widgets,

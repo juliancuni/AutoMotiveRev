@@ -47,6 +47,7 @@ export class UserModalComponent implements OnInit {
             /** Krijo nje update Obj (ngrx update object) */
             const update: Update<UserDto> = { id: user.id!, changes: formValues };
             /** Kontrollo nese eshte per update apo per create */
+            console.log(user)
             this.update ? this._store.dispatch(updateUser({ update })) : this._store.dispatch(addNewUser({ user }));
         }
         /** Mbyll modal */

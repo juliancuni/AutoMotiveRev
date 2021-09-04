@@ -6,6 +6,7 @@ import { PrivateHeaderComponent } from './private-header/private-header.componen
 import { PrivateFooterComponent } from './private-footer/private-footer.component';
 import { PrivateSidebarComponent } from './private-sidebar/private-sidebar.component';
 import { PrivateOffsidebarComponent } from './private-offsidebar/private-offsidebar.component';
+import { UserblockComponent } from './userblock/userblock.component';
 
 
 
@@ -15,7 +16,8 @@ import { PrivateOffsidebarComponent } from './private-offsidebar/private-offside
     PrivateHeaderComponent,
     PrivateFooterComponent,
     PrivateSidebarComponent,
-    PrivateOffsidebarComponent
+    PrivateOffsidebarComponent,
+    UserblockComponent
   ],
   imports: [
     CommonModule,

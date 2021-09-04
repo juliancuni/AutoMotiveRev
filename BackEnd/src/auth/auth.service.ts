@@ -15,6 +15,7 @@ export class AuthService {
     ) { }
 
     async login(loginDto: LoginUserDto): Promise<TokenDto> {
+        console.log(loginDto)
         const user = await this.userService.findUserFromAuthPublic(loginDto);
         if (!user) throw new UnauthorizedException('Login deshtoi. Kredencialet nuk jane te rregullta!');
         if (!user.isActive) throw new NotFoundException('Ky user eshte pezulluar');

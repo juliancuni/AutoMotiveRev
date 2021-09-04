@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { dispatch } from 'rxjs/internal/observable/pairs';
 import { concatMap, map, switchMap, tap } from 'rxjs/operators';
-import { AuthenticationService } from '../../sdk';
-import { login, loginSuccess, logout, saveToLocalStorage } from '../actions/auth.actions';
+import { AuthenticationService, UsersCRUDService } from '../../sdk';
+import { login, loginSuccess, logout, saveToLocalStorage, whoAmI, whoAmISuccess } from '../actions/auth.actions';
 
 
 
@@ -38,10 +38,20 @@ export class AuthEffects {
     })
   ), { dispatch: false });
 
+
+  whoAmI$ = createEffect(() => this.actions$.pipe(
+    ofType(whoAmI),
+    concatMap(() => this._userService.usersControllerWhoAmI()),
+    map((myUser) => {
+      return whoAmISuccess({ myUser })
+    })
+  ));
+
   constructor(
     private actions$: Actions,
     private readonly _authService: AuthenticationService,
     private readonly _router: Router,
+    private readonly _userService: UsersCRUDService,
   ) { }
 
 }

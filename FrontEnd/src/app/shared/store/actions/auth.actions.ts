@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LoginUserDto, TokenDto } from '../../sdk';
+import { LoginUserDto, TokenDto, UserDto } from '../../sdk';
 
 export const login = createAction(
   '[Login Page] Login',
@@ -24,3 +24,18 @@ export const loginFailure = createAction(
 export const logout = createAction(
   '[Header Component] Logout'
 )
+
+/** Who Am I */
+export const whoAmI = createAction(
+  '[Who Am I] User'
+);
+
+export const whoAmISuccess = createAction(
+  '[Effect whoAmISuccess$] User Success',
+  props<{ myUser: UserDto }>()
+);
+
+export const whoAmIFailure = createAction(
+  '[Effect whoAmIFailure$] User Failure',
+  props<{ error: any }>()
+);

@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const access_token: string = localStorage.getItem('access_token')!;
-    if (access_token) this._store.dispatch(loginSuccess({ token: { access_token } }))
+    if (access_token) this._store.dispatch(loginSuccess({ token: { access_token } }));
   }
 }

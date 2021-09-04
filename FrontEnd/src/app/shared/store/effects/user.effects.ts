@@ -15,7 +15,7 @@ export class UserEffects {
       // console.log(response.items)
       return loadUsersSuccess({ users: response.items })
     })
-  ))
+  ));
 
   addNewUser$ = createEffect(() => this.actions$.pipe(
     ofType(addNewUser),
@@ -24,7 +24,7 @@ export class UserEffects {
       // console.log(user);
       return addNewUserSuccess({ user })
     })
-  ))
+  ));
 
   updateUser$ = createEffect(() => this.actions$.pipe(
     ofType(updateUser),
@@ -33,7 +33,7 @@ export class UserEffects {
       // console.log(user);
       return updateUserSuccess({ user })
     })
-  ))
+  ));
 
   deleteUser$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUser),
@@ -42,7 +42,7 @@ export class UserEffects {
       // console.log(user);
       return deleteUserSuccess({ user })
     })
-  ))
+  ));
 
   constructor(private actions$: Actions, private userService: UsersCRUDService) { }
 
