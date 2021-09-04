@@ -1,6 +1,6 @@
 import AppBaseEntity from 'src/helpers/shared/base.entity';
 import { RoleEntity } from 'src/roles/entities/role.entity';
-import { Column, Entity, JoinTable, ManyToMany, Unique } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, Unique } from 'typeorm';
 
 @Entity('users')
 @Unique(['username', 'email', 'docId', 'phone'])

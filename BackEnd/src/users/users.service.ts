@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { PaginationDto } from 'src/helpers/shared/pagination.dto';
 import { RoleDto } from 'src/roles/dto/role.dto';
 import { RolesService } from 'src/roles/roles.service';
@@ -50,6 +51,21 @@ export class UsersService {
     this._isUUID(id);
     const user = await this.findOne(id);
     return await this.userRepo.softRemove(user);
+  }
+
+  /** Auth module related methods */
+  async registerAuthPublic(registerUserDto: RegisterUserDto) {
+    const newUser = this.userRepo.create(registerUserDto);
+    return await this.userRepo.save(newUser);
+  }
+
+  async findUserFromAuthPublic(conditions: any) {
+    let { email, username, password, phone } = conditions;
+    let user: UserDto;
+    if (!email && !username) throw new BadRequestException('Username ose Email jane bosh.');
+    if (!password) throw new BadRequestException('Password eshte bosh');
+    (username) ? user = await this.userRepo.findOne({ username }) : user = await this.userRepo.findOne({ email });
+    return user;
   }
 
   private async preloadRole(roleDto: RoleDto) {

@@ -1,12 +1,15 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('Users CRUD')
 @Controller('users')
+@UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(
     private readonly userService: UsersService,
@@ -33,6 +36,13 @@ export class UsersController {
   @Get(':id')
   async findById(@Param('id') id: string): Promise<UserDto> {
     return await this.userService.findOne(id);
+  }
+
+  @UseGuards(RolesGuard)
+  @Get('test/whoami')
+  async whoAmI(@Request() req: any): Promise<UserDto> {
+    console.log();
+    return await this.userService.findOne(req.user.userId);
   }
 
   @ApiBody({ type: UserDto, description: 'New User JSON', required: true })

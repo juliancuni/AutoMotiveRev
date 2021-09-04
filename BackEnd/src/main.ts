@@ -4,11 +4,14 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
+import * as helmet from 'helmet';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
-  app.enableCors({origin: "http://localhost:4200"})
+  app.enableCors({origin: "http://localhost:4200"});
+  app.use(helmet());
   app.useGlobalPipes(
     new ValidationPipe({
       transformOptions: {
