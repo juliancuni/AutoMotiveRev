@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
       this.valForm.controls[c].markAsTouched();
     }
     if (this.valForm.valid) {
-      console.log('Valid!');
-      console.log(value);
       this._store.dispatch(login({ loginDto: this.valForm.value }))
     }
   }
