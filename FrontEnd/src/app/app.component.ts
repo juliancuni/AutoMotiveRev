@@ -1,21 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './shared/store';
-import { loadRoles } from './shared/store/actions/role.actions';
-import { loadUsers } from './shared/store/actions/user.actions';
-
+import { loginSuccess } from './shared/store/actions/auth.actions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(
-    private readonly store: Store<AppState>,
-  ) {
-    this.store.dispatch(loadRoles());
-    this.store.dispatch(loadUsers());
-  }
+    private readonly _store: Store<AppState>,
+  ) { }
 
+  ngOnInit() {
+    const access_token: string = localStorage.getItem('access_token')!;
+    if (access_token) this._store.dispatch(loginSuccess({ token: { access_token } }))
+  }
 }

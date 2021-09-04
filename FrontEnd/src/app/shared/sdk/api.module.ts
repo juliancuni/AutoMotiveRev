@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthenticationService } from './api/authentication.service';
 import { RolesCRUDService } from './api/rolesCRUD.service';
 import { UsersCRUDService } from './api/usersCRUD.service';
 

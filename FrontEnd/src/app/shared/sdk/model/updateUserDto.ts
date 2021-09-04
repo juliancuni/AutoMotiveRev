@@ -25,5 +25,6 @@ export interface UpdateUserDto {
     phone?: string;
     address?: string;
     roles?: Array<RoleDto>;
+    isActive?: boolean;
 }
 

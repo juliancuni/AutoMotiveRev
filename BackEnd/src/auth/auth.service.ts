@@ -19,7 +19,7 @@ export class AuthService {
         if (!user) throw new UnauthorizedException('Login deshtoi. Kredencialet nuk jane te rregullta!');
         if (!user.isActive) throw new NotFoundException('Ky user eshte pezulluar');
         if (!await this._comparePass(loginDto.password, user.password)) throw new UnauthorizedException('Login deshtoi. Kredencialet nuk jane te rregullta!!');
-        
+
         const token = await this.jwtService.signAsync({ userId: user.id, username: user.username })
         const access_token: TokenDto = { access_token: token }
         return access_token;
@@ -44,3 +44,6 @@ export class AuthService {
         return await bcrypt.compare(plainTextPass, hashedPass);
     }
 }
+
+
+

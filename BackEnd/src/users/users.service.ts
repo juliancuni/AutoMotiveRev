@@ -60,11 +60,11 @@ export class UsersService {
   }
 
   async findUserFromAuthPublic(conditions: any) {
-    let { email, username, password, phone } = conditions;
+    let { identity, password, phone } = conditions;
     let user: UserDto;
-    if (!email && !username) throw new BadRequestException('Username ose Email jane bosh.');
+    if (!identity) throw new BadRequestException('Username ose Email jane bosh.');
     if (!password) throw new BadRequestException('Password eshte bosh');
-    (username) ? user = await this.userRepo.findOne({ username }) : user = await this.userRepo.findOne({ email });
+    (this._isEmail(identity)) ? user = await this.userRepo.findOne({ email: identity }) : user = await this.userRepo.findOne({ username: identity });
     return user;
   }
 
@@ -78,6 +78,12 @@ export class UsersService {
     let s: any = "" + uuid;
     s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
     if (s === null) throw new NotFoundException(`userId ${uuid} nuk egziston!!`);
+  }
+
+
+  private _isEmail(email: string) {
+    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
   }
 
 }
