@@ -2,6 +2,7 @@ import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, P
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { Roles } from 'src/auth/decorators/role.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
@@ -38,8 +39,9 @@ export class UsersController {
     return await this.userService.findOne(id);
   }
 
+  @Roles('root', 'admin')
   @UseGuards(RolesGuard)
-  @Get('test/whoami')
+  @Get('auth/whoami/')
   async whoAmI(@Request() req: any): Promise<UserDto> {
     return await this.userService.findOne(req.user.userId);
   }

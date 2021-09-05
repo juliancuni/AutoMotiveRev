@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityState, Update } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { UserDto } from '../../sdk'
-import { addNewUser, addNewUserSuccess, deleteUserSuccess, loadUsersSuccess, updateUser, updateUserSuccess } from '../actions/user.actions';
+import { addNewUserSuccess, deleteUserSuccess, loadUsersSuccess, updateUserSuccess } from '../actions/user.actions';
 
 export const userFeatureKey = 'users';
 

@@ -5,7 +5,7 @@ import { RegisterUserDto } from 'src/auth/dto/register-user.dto';
 import { PaginationDto } from 'src/helpers/shared/pagination.dto';
 import { RoleDto } from 'src/roles/dto/role.dto';
 import { RolesService } from 'src/roles/roles.service';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -23,9 +23,9 @@ export class UsersService {
     return await paginate<UserDto>(this.userRepo, options, { relations: (typeof relations === "string") ? [relations] : relations, where });
   }
 
-  async findOne(id: string): Promise<UserDto> {
+  async findOne(id: string, findOptions?: FindOneOptions): Promise<UserDto> {
     this._isUUID(id);
-    const user = await this.userRepo.findOne(id);
+    const user = await this.userRepo.findOne(id, findOptions);
     if (!user) throw new NotFoundException(`userId ${id} nuk egziston!`)
     return user;
   }

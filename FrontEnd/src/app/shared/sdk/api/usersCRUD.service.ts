@@ -378,7 +378,7 @@ export class UsersCRUDService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<UserDto>(`${this.configuration.basePath}/api/users/test/whoami`,
+        return this.httpClient.get<UserDto>(`${this.configuration.basePath}/api/users/auth/whoami`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

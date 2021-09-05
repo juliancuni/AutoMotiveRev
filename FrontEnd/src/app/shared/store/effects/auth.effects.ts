@@ -56,7 +56,10 @@ export class AuthEffects {
     map((myUser) => {
       return whoAmISuccess({ myUser })
     }),
-    catchError(error => of(whoAmIFailure({ error })))
+    catchError(error => {
+      console.log(error)
+      return of(toastrError({ error }))
+    })
   ));
 
   constructor(
