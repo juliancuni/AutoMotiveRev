@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { TokenDto, UserDto } from '../../sdk';
-import { loginFailure, loginSuccess, logout, whoAmISuccess } from '../actions/auth.actions';
+import { loginSuccess, logout, whoAmISuccess } from '../actions/auth.actions';
 
 
 export const authFeatureKey = 'auth';
@@ -17,13 +17,13 @@ export const initialState: AuthState = {
   token: undefined,
   loggedUser: undefined,
   myUser: undefined,
+
 };
 
 
 export const authReducer = createReducer(
   initialState,
   on(loginSuccess, (state, { token }) => ({ ...state, token, authenticated: true })),
-  on(loginFailure, (state, { error }) => ({ ...state, error, authenticated: false })),
   on(logout, (state) => ({ ...state, authenticated: false })),
   on(whoAmISuccess, (state, { myUser }) => ({ ...state, myUser })),
 );

@@ -41,7 +41,6 @@ export class UsersController {
   @UseGuards(RolesGuard)
   @Get('test/whoami')
   async whoAmI(@Request() req: any): Promise<UserDto> {
-    console.log();
     return await this.userService.findOne(req.user.userId);
   }
 

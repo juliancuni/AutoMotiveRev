@@ -16,11 +16,6 @@ export const saveToLocalStorage = createAction(
   props<{ token: TokenDto }>()
 );
 
-export const loginFailure = createAction(
-  '[Auth] Load Auths Failure',
-  props<{ error: any }>()
-);
-
 export const logout = createAction(
   '[Header Component] Logout'
 )

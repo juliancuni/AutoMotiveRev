@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { dispatch } from 'rxjs/internal/observable/pairs';
-import { concatMap, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, concatMap, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService, UsersCRUDService } from '../../sdk';
-import { login, loginSuccess, logout, saveToLocalStorage, whoAmI, whoAmISuccess } from '../actions/auth.actions';
+import { login, loginSuccess, logout, saveToLocalStorage, whoAmI, whoAmIFailure, whoAmISuccess } from '../actions/auth.actions';
+import { toastrError } from '../actions/ui.actions';
 
 
 
@@ -13,14 +15,23 @@ export class AuthEffects {
 
   login$ = createEffect(() => this.actions$.pipe(
     ofType(login),
-    concatMap(({ loginDto }) => this._authService.authControllerLogin(loginDto)),
-    switchMap((token) => {
-      return [
-        loginSuccess({ token }),
-        saveToLocalStorage({ token })
-      ]
-    })
-  ));
+    exhaustMap(({ loginDto }) =>
+      this._authService.authControllerLogin(loginDto).pipe(
+        concatMap(token => {
+          return [
+            loginSuccess({ token }),
+            saveToLocalStorage({ token })
+          ]
+        }),
+        catchError(({ error }) => {
+          console.log(error)
+          if (!error.statusCode) error = { statusCode: "Error", message: "Server mund te jete down. Lajmero administratorin" }
+
+          return of(toastrError({ error }))
+        })
+      )
+    ))
+  );
 
   saveToLocalStorage$ = createEffect(() => this.actions$.pipe(
     ofType(saveToLocalStorage),
@@ -44,7 +55,8 @@ export class AuthEffects {
     concatMap(() => this._userService.usersControllerWhoAmI()),
     map((myUser) => {
       return whoAmISuccess({ myUser })
-    })
+    }),
+    catchError(error => of(whoAmIFailure({ error })))
   ));
 
   constructor(

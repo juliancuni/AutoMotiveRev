@@ -36,9 +36,7 @@ export class UsersService {
     const user = await this.userRepo.findOne({ username: userDto.username });
     if (user) throw new BadRequestException(`Egziston i regjistruar ky username: "${user.username}"`);
     let { password } = userDto;
-    console.log(password)
     password = await this._hashPass(password);
-    console.log(password)
     const newUser = this.userRepo.create({ ...userDto, password, roles });
     return await this.userRepo.save(newUser);
   }
