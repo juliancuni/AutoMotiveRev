@@ -1,35 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { SubjektiService } from './subjekti.service';
+import { CreateSubjektiDto } from './dto/create-subjekti.dto';
 import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
-import { SubjektiDto } from './dto/subjekti.dto';
 
-@Controller('subjektet')
+@Controller('subjekti')
 export class SubjektiController {
   constructor(private readonly subjektiService: SubjektiService) {}
 
   @Post()
-  @UsePipes(ValidationPipe)
-  async create(@Body() createSubjektiDto: SubjektiDto) {
-    return await this.subjektiService.create(createSubjektiDto);
+  create(@Body() createSubjektiDto: CreateSubjektiDto) {
+    return this.subjektiService.create(createSubjektiDto);
   }
 
   @Get()
-  async findAll() {
-    return await this.subjektiService.findAll();
+  findAll() {
+    return this.subjektiService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.subjektiService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.subjektiService.findOne(+id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateSubjektiDto: UpdateSubjektiDto) {
-    return await this.subjektiService.update(id, updateSubjektiDto);
+  update(@Param('id') id: string, @Body() updateSubjektiDto: UpdateSubjektiDto) {
+    return this.subjektiService.update(+id, updateSubjektiDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.subjektiService.remove(id);
+  remove(@Param('id') id: string) {
+    return this.subjektiService.remove(+id);
   }
 }
