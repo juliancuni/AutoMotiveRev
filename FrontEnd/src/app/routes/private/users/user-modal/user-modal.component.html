@@ -1,0 +1,142 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{userModalTitle}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="userModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="userForm" class="form-validate form-horizontal" novalidate="">
+
+        <!-- Username -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="username" placeholder="Username" />
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['username'].hasError('required') && (userForm.controls['username'].dirty || userForm.controls['username'].touched)">S'mund
+                    te lihet bosh</span>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group row" *ngIf="!update">
+            <div class="col-lg-7 input-group">
+                <input class="form-control" type="text" formControlName="password" placeholder="Password"
+                    (click)="generateNewRandomPassword()" />
+                <div class="input-group-append">
+                    <button class="btn" type="button" (click)="generateNewRandomPassword()">
+                        <i class="fa fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-5" *ngIf="!update">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['password'].hasError('required') && (userForm.controls['password'].dirty || userForm.controls['password'].touched)">S'mund
+                    te lihet bosh</span>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="email" placeholder="Email" />
+
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['email'].hasError('required') && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">S'mund
+                    te lihet bosh</span>
+            </div>
+        </div>
+
+        <!-- Telefoni -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="phone" placeholder="Telefoni" />
+
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="userForm.controls['phone'].hasError('required') && (userForm.controls['phone'].dirty || userForm.controls['phone'].touched)">S'mund
+                    te lihet bosh</span>
+            </div>
+        </div>
+
+        <!-- Id Card -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="docId" placeholder="Id Card" />
+            </div>
+        </div>
+        <!-- Emer -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="emer" placeholder="Emer" />
+
+            </div>
+        </div>
+        <!-- Mbiemer -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="mbiemer" placeholder="Mbiemer" />
+
+            </div>
+        </div>
+
+        <!-- Pseudonimi -->
+        <div class="form-group row" *ngIf="false">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="alias" placeholder="Pseudonimi" />
+
+            </div>
+        </div>
+
+        <!-- Adresa -->
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="address" placeholder="Adresa" />
+
+            </div>
+        </div>
+
+        <!-- Fotografia -->
+        <div class="form-group row" *ngIf="false">
+            <label class="col-lg-1 col-form-label text-lg-right">Foto</label>
+            <div class="col-lg-6">
+                <input class="form-control" type="file" formControlName="photo" placeholder="Fotografia" />
+            </div>
+        </div>
+    </form>
+    <!-- Rolet -->
+    <div class="d-flex mb-3 col-lg-7" *ngFor="let role of allRoles; let i=index">
+
+        <label for="{{i}}">{{role.role}}</label>
+        <div class="ml-auto">
+            <label class="switch m-0" for="{{i}}">
+                <input type="checkbox" id="{{i}}" name="{{i}}" (change)="onRoleChange()"
+                    [(ngModel)]="role.isSelected" />
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <button class="btn btn-xs btn-primary mr-2" type="button" (click)="openRoleModal()">Regjistro Role</button>
+    <button class="btn btn-xs btn-secondary" type="button" (click)="resetPassword()" *ngIf="update">Reset
+        Password</button>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submitUserForm()">Ruaj</button>
+    <button type="button" class="btn btn-secondary" (click)="userModalRef.hide()">Mbyll</button>
+</div>

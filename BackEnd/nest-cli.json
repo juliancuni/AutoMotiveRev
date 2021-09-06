@@ -2,9 +2,14 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
+<<<<<<< HEAD
     "assets": [
       "mail/templates/**/*"
     ],
     "watchAssets": true
+=======
+    "deleteOutDir": true,
+    "plugins": ["@nestjs/swagger/plugin"]
+>>>>>>> backToNest
   }
 }

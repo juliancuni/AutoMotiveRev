@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SubjektiModule } from './subjekti/subjekti.module';
-import { UserModule } from './user/user.module';
+import { DbModule } from './helpers/db/db.module';
+import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
+import { ConfModule } from './helpers/config/conf.module';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
+<<<<<<< HEAD
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -37,8 +36,15 @@ import { MailModule } from './mail/mail.module';
     AuthModule,
     RoleModule,
     MailModule
+=======
+    ConfModule,
+    DbModule,
+    UsersModule,
+    RolesModule,
+    AuthModule,
+>>>>>>> backToNest
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }

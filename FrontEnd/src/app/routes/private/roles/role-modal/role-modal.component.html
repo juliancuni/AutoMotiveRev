@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Regjistro nje rol te ri</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="roleModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="roleForm" class="form-validate form-horizontal" novalidate="">
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="role" placeholder="role" />
+            </div>
+            <div class="col-lg-5">
+                <small class="text-danger">* </small>
+                <span class="text-danger"
+                    *ngIf="roleForm.controls['role'].hasError('required') && (roleForm.controls['role'].dirty || roleForm.controls['role'].touched)">This
+                    field is required</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label text-lg-right">Required Text</label> -->
+            <div class="col-lg-7">
+                <input class="form-control" type="text" formControlName="desc" placeholder="Pershkrimi" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submitRoleForm()">Ruaj</button>
+    <button type="button" class="btn btn-secondary" (click)="roleModalRef.hide()">Mbyll</button>
+</div>

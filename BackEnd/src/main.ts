@@ -1,29 +1,41 @@
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
+
 import * as helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+
   app.setGlobalPrefix('api');
+<<<<<<< HEAD
   app.useGlobalPipes(new ValidationPipe());
+=======
+  app.enableCors({origin: "http://localhost:4200"});
+>>>>>>> backToNest
   app.use(helmet());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transformOptions: {
+        enableImplicitConversion: true,
+      }
+    })
+  )
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats')
+    .setTitle('AutMotive Api')
+    .setDescription(
+      'Car Repair Shop Managment, Parts Inventory, Clients Managment etc',
+    )
+    .setVersion('0.0.1')
     .build();
-  const options: SwaggerDocumentOptions = {
-    operationIdFactory: (
-      controllerKey: string,
-      methodKey: string
-    ) => methodKey
-  };
-  const document = SwaggerModule.createDocument(app, config, options);
+
+  const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('openapi', app, document);
 
-  await app.listen(process.env.SERVER_PORT);
+  await app.listen(3000);
 }
 bootstrap();
