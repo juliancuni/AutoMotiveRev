@@ -1,0 +1,31 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+    - "5432:5432"
+    volumes:
+    - /media/exthdd/home/julian/Projects/containerdata/postgres:/data/postgres
+    #env_file:
+    #- /media/exthdd/home/julian/Projects/containerdata/docker.env
+    networks:
+    - postgres
+ 
+  pgadmin:
+    links:
+    - postgres:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+    - "8080:80"
+    volumes:
+    - /media/exthdd/home/julian/Projects/containerdata/pgadmin:/root/.pgadmin
+    #env_file:
+    #- /media/exthdd/home/julian/Projects/containerdata/docker.env
+    networks:
+    - postgres
+ 
+networks:
+  postgres:
+    driver: bridge

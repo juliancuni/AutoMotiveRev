@@ -1,0 +1,57 @@
+<table class="table">
+    <thead>
+        <th>
+            Emri
+        </th>
+        <th>
+            username
+        </th>
+        <th>
+            email
+        </th>
+        <th>
+            Nr.Tel
+        </th>
+        <th>
+            Rolet
+        </th>
+        <th>
+            <button class="mr-1 btn btn-primary btn-xs" type="button" (click)="openUserModal()">New User</button>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users$ | async; index as i">
+            <td>
+                {{user.emer}} {{user.mbiemer}}
+            </td>
+            <td>
+                {{user.username}}
+            </td>
+            <td>
+                {{user.email}}
+            </td>
+
+            <td>
+                {{user.phone}}
+            </td>
+            <td>
+                <span *ngFor="let role of user.roles">{{role.role}},</span>
+            </td>
+            <td>
+                <button class="mr-1 btn btn-primary btn-xs" type="button" (click)="openUserModal(user)">Edit</button>
+
+                <button class="mr-1 btn btn-danger btn-xs" type="button"
+                    (click)="openDeleteConfirm(template, user)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<ng-template #template>
+    <div class="modal-body text-center">
+        <p>Jeni i sigurte qe doni te fshini <strong style="color: red;">{{user?.emer}} {{user?.mbiemer}}</strong>?</p>
+        <button type="button" class="btn btn-xs btn-default" (click)="confirmDeleteUser()">Yes</button>
+        <button type="button" class="btn btn-xs btn-primary" (click)="cancelDelete()">No</button>
+    </div>
+</ng-template>

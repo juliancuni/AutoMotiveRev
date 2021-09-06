@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <!-- top navbar-->
+    <app-private-header class="topnavbar-wrapper"></app-private-header>
+    <!-- sidebar-->
+    <app-private-sidebar class="aside-container"></app-private-sidebar>
+    <!-- offsidebar-->
+    <app-private-offsidebar class="offsidebar"></app-private-offsidebar>
+    <!-- Main section-->
+    <section class="section-container">
+        <!-- Page content-->
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </section>
+    <!-- Page footer-->
+    <footer class="footer-container" app-private-footer></footer>
+</div>
