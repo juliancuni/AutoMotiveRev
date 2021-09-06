@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "gen:sdk": "node_modules/.bin/openapi-generator-cli generate -g typescript-angular -i http://localhost:3000/openapi-json -o ./src/app/shared/sdk",
