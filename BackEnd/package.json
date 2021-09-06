@@ -21,11 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@nestjs-modules/mailer": "^1.6.0",
-=======
-    "@hapi/joi": "^17.1.1",
->>>>>>> backToNest
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.0.1",
     "@nestjs/core": "^8.0.0",
@@ -35,24 +31,13 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.0.9",
     "@nestjs/typeorm": "^8.0.2",
-<<<<<<< HEAD
-=======
-    "@types/hapi__joi": "^17.1.7",
->>>>>>> backToNest
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "handlebars": "^4.7.7",
     "helmet": "^4.6.0",
-<<<<<<< HEAD
     "nodemailer": "^6.6.3",
     "passport-jwt": "^4.0.0",
-=======
-    "nestjs-typeorm-paginate": "^2.6.2",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
->>>>>>> backToNest
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -69,13 +54,8 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.0.0",
-<<<<<<< HEAD
     "@types/nodemailer": "^6.4.4",
     "@types/passport-jwt": "^3.0.6",
-=======
-    "@types/passport-jwt": "^3.0.6",
-    "@types/passport-local": "^1.0.34",
->>>>>>> backToNest
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
