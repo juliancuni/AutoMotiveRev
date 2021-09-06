@@ -62,7 +62,7 @@ export class UserModalComponent implements OnInit {
     /** Kur te ndryshoje lista e roleve ne form */
     onRoleChange() {
         this.userForm.markAsDirty();
-        let userRolesTmp = [...this.userRoles]
+        let userRolesTmp = (this.userRoles) ? [...this.userRoles]: [];
         this.allRoles.map((role) => {
             if (role && role.isSelected) {
                 let userRole = { ...role };
@@ -72,7 +72,6 @@ export class UserModalComponent implements OnInit {
             }
             if (role && !role.isSelected) {
                 let index = userRolesTmp.map((r) => r.id).indexOf(role.id);
-                console.log(index, role.role);
                 if (index > -1) userRolesTmp.splice(index);
             }
             this.userRoles = [...userRolesTmp]
