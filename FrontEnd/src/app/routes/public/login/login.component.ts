@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/store';
 import { login } from 'src/app/shared/store/actions/auth.actions';
+import { environment } from 'src/environments/environment';
 // import { CustomValidators } from 'ngx-custom-validators';
 
 @Component({
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
   ) {
 
     this.valForm = this.fb.group({
-      'identity': ["root", Validators.required],
-      'password': ["36638833", Validators.required]
+      'identity': [ (environment.production) ? null : "root", Validators.required],
+      'password': [ (environment.production) ? null : "36638833", Validators.required]
     });
 
   }
