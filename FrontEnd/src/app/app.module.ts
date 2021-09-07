@@ -21,7 +21,7 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { UiEffects } from './shared/store/effects/ui.effects';
 
 const apiConf = () => {
-  return new Configuration({ basePath: "http://localhost:3000" })
+  return new Configuration({ basePath: environment.apiBasePath })
 };
 
 @NgModule({
