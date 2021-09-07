@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseGuards } from '@nestjs/common';
 import { SubjektiService } from './subjekti.service';
-import { CreateSubjektiDto } from './dto/create-subjekti.dto';
+import { SubjektiDto } from './dto/subjekti.dto';
 import { UpdateSubjektiDto } from './dto/update-subjekti.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/auth/decorators/role.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('subjekti')
+@ApiTags('Subjekti')
 export class SubjektiController {
-  constructor(private readonly subjektiService: SubjektiService) {}
+  constructor(private readonly subjektiService: SubjektiService) { }
 
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+
+  @Roles('admin', 'root')
   @Post()
-  create(@Body() createSubjektiDto: CreateSubjektiDto) {
+  create(@Body() createSubjektiDto: SubjektiDto) {
     return this.subjektiService.create(createSubjektiDto);
   }
 
   @Get()
-  findAll() {
-    return this.subjektiService.findAll();
+  findOne() {
+    return this.subjektiService.findOne();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subjektiService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubjektiDto: UpdateSubjektiDto) {
-    return this.subjektiService.update(+id, updateSubjektiDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subjektiService.remove(+id);
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles('admin', 'root')
+  @Patch()
+  update(@Body() updateSubjektiDto: UpdateSubjektiDto) {
+    return this.subjektiService.update(updateSubjektiDto);
   }
 }
