@@ -24,7 +24,6 @@ export class UsersService {
   }
 
   async findOne(id: string, findOptions?: FindOneOptions): Promise<UserDto> {
-    this._isUUID(id);
     const user = await this.userRepo.findOne(id, findOptions);
     if (!user) throw new NotFoundException(`userId ${id} nuk egziston!`)
     return user;
@@ -42,7 +41,6 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDto> {
-    this._isUUID(id);
     const roles = updateUserDto.roles && (await Promise.all(updateUserDto.roles.map((role) => this.preloadRole(role))));
     const user = await this.userRepo.preload({ id, ...updateUserDto, roles });
     if (!user) throw new NotFoundException(`userId ${id} nuk egziston`);
@@ -50,7 +48,6 @@ export class UsersService {
   }
 
   async delete(id: string) {
-    this._isUUID(id);
     const user = await this.findOne(id);
     return await this.userRepo.softRemove(user);
   }
@@ -75,13 +72,6 @@ export class UsersService {
     if (existingRole) return existingRole;
     return await this.roleService.create(roleDto);
   }
-
-  private _isUUID(uuid: string) {
-    let s: any = "" + uuid;
-    s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
-    if (s === null) throw new NotFoundException(`userId ${uuid} nuk egziston!!`);
-  }
-
 
   private _isEmail(email: string) {
     const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

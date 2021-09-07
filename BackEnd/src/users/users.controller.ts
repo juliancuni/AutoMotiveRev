@@ -1,9 +1,10 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { Roles } from 'src/auth/decorators/role.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { UUIDCheckPipe } from 'src/helpers/pipes/uuid.pipe';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
@@ -34,8 +35,8 @@ export class UsersController {
   }
 
   @ApiParam({ name: 'id', description: 'User id', required: true, type: String })
-  @Get(':id')
-  async findById(@Param('id') id: string): Promise<UserDto> {
+  @Get(':uuid')
+  async findById(@Param('uuid', UUIDCheckPipe) id: string): Promise<UserDto> {
     return await this.userService.findOne(id);
   }
 
@@ -53,14 +54,14 @@ export class UsersController {
   }
 
   @ApiParam({ name: 'id', description: 'User id', required: true, type: String })
-  @Patch(':id')
-  async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UserDto> {
+  @Patch(':uuid')
+  async updateUser(@Param('uuid', UUIDCheckPipe) id: string, @Body() updateUserDto: UpdateUserDto): Promise<UserDto> {
     return await this.userService.update(id, updateUserDto);
   }
 
   @ApiParam({ name: 'id', description: 'User id', required: true, type: String })
-  @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  @Delete(':uuid')
+  async deleteUser(@Param('uuid', UUIDCheckPipe) id: string) {
     return await this.userService.delete(id);
   }
 

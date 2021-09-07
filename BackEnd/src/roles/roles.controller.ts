@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { UUIDCheckPipe } from 'src/helpers/pipes/uuid.pipe';
 import { RoleDto } from './dto/role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { RoleEntity } from './entities/role.entity';
@@ -17,8 +18,8 @@ export class RolesController {
     return await this.roleService.findAll();
   }
 
-  @Get(':id')
-  async findById(@Param('id') id: string) {
+  @Get(':uuid')
+  async findById(@Param('uuid', UUIDCheckPipe) id: string) {
     return await this.roleService.findOneById(id);
   }
 
@@ -27,13 +28,13 @@ export class RolesController {
     return await this.roleService.create(role);
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto): Promise<RoleDto> {
+  @Patch(':uuid')
+  async update(@Param('uuid', UUIDCheckPipe) id: string, @Body() updateRoleDto: UpdateRoleDto): Promise<RoleDto> {
     return await this.roleService.update(id, updateRoleDto);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<RoleDto> {
+  @Delete(':uuid')
+  async delete(@Param('uuid', UUIDCheckPipe) id: string): Promise<RoleDto> {
     return this.roleService.delete(id);
   }
 

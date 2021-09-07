@@ -16,7 +16,6 @@ export class RolesService {
   }
 
   async findOneById(id: string): Promise<RoleDto> {
-    this._isUUID(id);
     const role = await this.roleRepo.findOne(id);
     if (!role) throw new NotFoundException(`roleId ${id} nuk egziston!`)
     return role;
@@ -36,21 +35,13 @@ export class RolesService {
   }
 
   async update(id: string, updateRoleDto: UpdateRoleDto): Promise<RoleDto> {
-    this._isUUID(id);
     const role = await this.roleRepo.preload({ id, ...updateRoleDto });
     if (!role) throw new NotFoundException(`roleId ${id} nuk egziston`);
     return await this.roleRepo.save(role);
   }
 
   async delete(id: string): Promise<RoleDto> {
-    this._isUUID(id);
     const role = await this.findOneById(id);
     return await this.roleRepo.softRemove(role);
-  }
-
-  private _isUUID(uuid: string) {
-    let s: any = "" + uuid;
-    s = s.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
-    if (s === null) throw new NotFoundException(`roleId ${uuid} nuk egziston!!`);
   }
 }
